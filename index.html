@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Border Radius Editor</title>
+        <link rel="stylesheet" href="./style.css">
+    </head>
+    <body>
+        <div class="preview-box" id="preview-box"></div>
+
+        <div class="controls">
+            <label>
+                Top Left:
+                <input type="text" id="top-left" placeholder="e.g., 10px" />
+            </label>
+            <label>
+                Top Right:
+                <input type="text" id="top-right" placeholder="e.g., 10px" />
+            </label>
+            <label>
+                Bottom Left:
+                <input type="text" id="bottom-left" placeholder="e.g., 10px" />
+            </label>
+            <label>
+                Bottom Right:
+                <input type="text" id="bottom-right" placeholder="e.g., 10px" />
+            </label>
+            <label>
+                Top Left 2:
+                <input type="text" id="top-left-2" placeholder="e.g., 10px" />
+            </label>
+            <label>
+                Top Right 2:
+                <input type="text" id="top-right-2" placeholder="e.g., 10px" />
+            </label>
+            <label>
+                Bottom Left 2:
+                <input type="text" id="bottom-left-2" placeholder="e.g., 10px" />
+            </label>
+            <label>
+                Bottom Right 2:
+                <input type="text" id="bottom-right-2" placeholder="e.g., 10px" />
+            </label>
+        </div>
+
+        <button onclick="copyCSS()">Copy CSS</button>
+
+        <script>
+            const previewBox = document.getElementById('preview-box');
+
+            document.querySelectorAll('.controls input').forEach((input) => {
+                input.addEventListener('input', updateBorderRadius);
+            });
+
+            function updateBorderRadius() {
+                const topLeft = document.getElementById('top-left').value || '0';
+                const topRight = document.getElementById('top-right').value || '0';
+                const bottomLeft = document.getElementById('bottom-left').value || '0';
+                const bottomRight = document.getElementById('bottom-right').value || '0';
+
+                const topLeft2 = document.getElementById('top-left-2').value || '0';
+                const topRight2 = document.getElementById('top-right-2').value || '0';
+                const bottomLeft2 = document.getElementById('bottom-left-2').value || '0';
+                const bottomRight2 = document.getElementById('bottom-right-2').value || '0';
+
+                previewBox.style.borderRadius = `
+                    ${topLeft} ${topRight} ${bottomRight} ${bottomLeft} /
+                    ${topLeft2} ${topRight2} ${bottomRight2} ${bottomLeft2}`;
+            }
+
+            function copyCSS() {
+                const borderRadius = previewBox.style.borderRadius;
+                navigator.clipboard.writeText(`border-radius: ${borderRadius};`).then(() => {
+                    alert('CSS copied to clipboard!');
+                });
+            }
+        </script>
+    </body>
+</html>
